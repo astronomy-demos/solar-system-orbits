@@ -1,0 +1,65 @@
+flowchart LR
+    Notebook["Notebook"]
+
+    subgraph Model["Model"]
+        Body["CelestialBody"]
+        Position["CartesianPosition"]
+        BodyOrbit["BodyOrbit"]
+        SolarSystem["SolarSystemOrbit"]
+        PlotResult["PlotResult"]
+        AnimationResult["AnimationResult"]
+    end
+
+    subgraph Domain["Domain services"]
+        DataService["OrbitDataService"]
+        PlotService["OrbitPlotService"]
+        AnimationService["OrbitAnimation3DService"]
+    end
+
+    subgraph EphemerisPort["Port: ephemeris"]
+        EphemerisContract["EphemerisProviderPort"]
+        Synthetic["SyntheticEphemerisProvider"]
+        JPL["JplHorizonsEphemerisProvider"]
+    end
+
+    subgraph PlottingPort["Port: plotting"]
+        PlotterContract["OrbitPlotterPort"]
+        Matplotlib["MatplotlibOrbitPlotter 2D"]
+        Pillow["PillowOrbitPlotter 2D"]
+        PyVista["PyVistaOrbitPlotter 2D"]
+        Vedo["VedoOrbitPlotter 2D"]
+    end
+
+    subgraph AnimationPort["Port: animation 3D"]
+        AnimationContract["OrbitAnimation3DPort"]
+        Matplotlib3D["Matplotlib3DOrbitAnimator"]
+        Pillow3D["Pillow3DOrbitAnimator"]
+        PyVista3D["PyVista3DOrbitAnimator"]
+        Vedo3D["Vedo3DOrbitAnimator"]
+    end
+
+    Notebook --> DataService
+    DataService --> EphemerisContract
+    EphemerisContract -. implementa .-> Synthetic
+    EphemerisContract -. implementa .-> JPL
+    DataService --> SolarSystem
+    SolarSystem --> BodyOrbit
+    BodyOrbit --> Body
+    BodyOrbit --> Position
+
+    Notebook --> PlotService
+    Notebook --> SolarSystem
+    PlotService --> PlotterContract
+    PlotterContract -. implementa .-> Matplotlib
+    PlotterContract -. implementa .-> Pillow
+    PlotterContract -. implementa .-> PyVista
+    PlotterContract -. implementa .-> Vedo
+    PlotService --> PlotResult
+
+    Notebook --> AnimationService
+    AnimationService --> AnimationContract
+    AnimationContract -. implementa .-> Matplotlib3D
+    AnimationContract -. implementa .-> Pillow3D
+    AnimationContract -. implementa .-> PyVista3D
+    AnimationContract -. implementa .-> Vedo3D
+    AnimationService --> AnimationResult
