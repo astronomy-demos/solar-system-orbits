@@ -8,8 +8,8 @@ Proyecto en Python para obtener posiciones cartesianas `x`, `y`, `z` de cuerpos 
 - Cometa Halley.
 - Proveedor sintetico local para demos sin internet.
 - Adaptador NASA JPL Horizons.
-- Animadores 2D: Matplotlib, Pillow, PyVista y Vedo.
-- Animadores 3D: Matplotlib, Pillow, PyVista y Vedo.
+- Animadores 2D: Matplotlib y Pillow.
+- Animadores 3D: Matplotlib y Pillow.
 - Notebook para comparar cada libreria en dos columnas: 2D a la izquierda y 3D a la derecha.
 
 ## Estructura
@@ -44,8 +44,6 @@ El notebook obtiene las orbitas una sola vez y luego renderiza cada motor con la
 
 - Matplotlib: 2D y 3D.
 - Pillow: 2D y 3D.
-- PyVista: 2D y 3D.
-- Vedo: 2D y 3D.
 
 Cada celda de graficador incluye su propio `%pip install` para funcionar tambien en runtimes limpios como Google Colab.
 
@@ -90,16 +88,12 @@ flowchart LR
         Animation2DContract["OrbitAnimation2DPort"]
         Matplotlib["Matplotlib2DOrbitAnimator"]
         Pillow["Pillow2DOrbitAnimator"]
-        PyVista["PyVista2DOrbitAnimator"]
-        Vedo["Vedo2DOrbitAnimator"]
     end
 
     subgraph AnimationPort["Port: animation 3D"]
         AnimationContract["OrbitAnimation3DPort"]
         Matplotlib3D["Matplotlib3DOrbitAnimator"]
         Pillow3D["Pillow3DOrbitAnimator"]
-        PyVista3D["PyVista3DOrbitAnimator"]
-        Vedo3D["Vedo3DOrbitAnimator"]
     end
 
     Notebook --> DataService
@@ -116,15 +110,11 @@ flowchart LR
     Animation2DService --> Animation2DContract
     Animation2DContract -. implementa .-> Matplotlib
     Animation2DContract -. implementa .-> Pillow
-    Animation2DContract -. implementa .-> PyVista
-    Animation2DContract -. implementa .-> Vedo
     Animation2DService --> Animation2DResult
 
     Notebook --> AnimationService
     AnimationService --> AnimationContract
     AnimationContract -. implementa .-> Matplotlib3D
     AnimationContract -. implementa .-> Pillow3D
-    AnimationContract -. implementa .-> PyVista3D
-    AnimationContract -. implementa .-> Vedo3D
     AnimationService --> AnimationResult
 ```

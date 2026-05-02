@@ -31,8 +31,6 @@ packages = [
     "matplotlib",
     "PIL",
     "astroquery",
-    "pyvista",
-    "vedo",
     "imageio",
     "pytest",
     "ipykernel",

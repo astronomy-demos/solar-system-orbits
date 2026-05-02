@@ -26,16 +26,12 @@ flowchart LR
         Animation2DContract["OrbitAnimation2DPort"]
         Matplotlib["Matplotlib2DOrbitAnimator"]
         Pillow["Pillow2DOrbitAnimator"]
-        PyVista["PyVista2DOrbitAnimator"]
-        Vedo["Vedo2DOrbitAnimator"]
     end
 
     subgraph AnimationPort["Port: animation 3D"]
         AnimationContract["OrbitAnimation3DPort"]
         Matplotlib3D["Matplotlib3DOrbitAnimator"]
         Pillow3D["Pillow3DOrbitAnimator"]
-        PyVista3D["PyVista3DOrbitAnimator"]
-        Vedo3D["Vedo3DOrbitAnimator"]
     end
 
     Notebook --> DataService
@@ -52,14 +48,10 @@ flowchart LR
     Animation2DService --> Animation2DContract
     Animation2DContract -. implementa .-> Matplotlib
     Animation2DContract -. implementa .-> Pillow
-    Animation2DContract -. implementa .-> PyVista
-    Animation2DContract -. implementa .-> Vedo
     Animation2DService --> Animation2DResult
 
     Notebook --> AnimationService
     AnimationService --> AnimationContract
     AnimationContract -. implementa .-> Matplotlib3D
     AnimationContract -. implementa .-> Pillow3D
-    AnimationContract -. implementa .-> PyVista3D
-    AnimationContract -. implementa .-> Vedo3D
     AnimationService --> AnimationResult

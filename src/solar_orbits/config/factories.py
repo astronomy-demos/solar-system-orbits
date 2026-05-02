@@ -34,16 +34,6 @@ def build_2d_animator(name: str) -> OrbitAnimation2DPort:
         from solar_orbits.ports.animation_2d.adapters.pillow_2d_animator import Pillow2DOrbitAnimator
 
         return Pillow2DOrbitAnimator()
-    if animator_name == "pyvista":
-        from solar_orbits.ports.animation_2d.adapters.pyvista_2d_animator import (
-            PyVista2DOrbitAnimator,
-        )
-
-        return PyVista2DOrbitAnimator()
-    if animator_name == "vedo":
-        from solar_orbits.ports.animation_2d.adapters.vedo_2d_animator import Vedo2DOrbitAnimator
-
-        return Vedo2DOrbitAnimator()
     raise ValueError(f"Unknown 2D animator engine: {name}")
 
 
@@ -61,16 +51,4 @@ def build_3d_animator(name: str) -> OrbitAnimation3DPort:
         )
 
         return Pillow3DOrbitAnimator()
-    if animator_name == "pyvista":
-        from solar_orbits.ports.animation_3d.adapters.pyvista_3d_animator import (
-            PyVista3DOrbitAnimator,
-        )
-
-        return PyVista3DOrbitAnimator()
-    if animator_name == "vedo":
-        from solar_orbits.ports.animation_3d.adapters.vedo_3d_animator import (
-            Vedo3DOrbitAnimator,
-        )
-
-        return Vedo3DOrbitAnimator()
     raise ValueError(f"Unknown 3D animator engine: {name}")

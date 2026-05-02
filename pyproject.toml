@@ -13,8 +13,6 @@ dependencies = [
   "matplotlib>=3.7",
   "pillow>=10.0",
   "astroquery>=0.4.7",
-  "pyvista>=0.43",
-  "vedo>=2024.5",
   "imageio>=2.34",
 ]
 

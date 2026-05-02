@@ -18,15 +18,11 @@ def test_build_ephemeris_provider_supports_known_providers() -> None:
 def test_build_2d_animator_supports_known_2d_engines() -> None:
     assert build_2d_animator("matplotlib").engine_name == "matplotlib"
     assert build_2d_animator("pillow").engine_name == "pillow"
-    assert build_2d_animator("pyvista").engine_name == "pyvista"
-    assert build_2d_animator("vedo").engine_name == "vedo"
 
 
 def test_build_3d_animator_supports_known_3d_engines() -> None:
     assert build_3d_animator("matplotlib").engine_name == "matplotlib-3d"
     assert build_3d_animator("pillow").engine_name == "pillow-3d"
-    assert build_3d_animator("pyvista").engine_name == "pyvista-3d"
-    assert build_3d_animator("vedo").engine_name == "vedo-3d"
 
 
 def test_factories_reject_unknown_engines() -> None:
