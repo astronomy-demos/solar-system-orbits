@@ -28,7 +28,7 @@ src/solar_orbits
 
 ## Instalacion
 
-Todas las dependencias necesarias estan en `requirements.txt`.
+Todas las dependencias necesarias estan en `requirements.txt`. El script crea un entorno virtual local en `.venv`, instala el proyecto, valida las dependencias y registra el kernel `Solar System Orbits` para usar el notebook con el mismo entorno.
 
 ```bash
 bash scripts/install.sh
@@ -52,7 +52,7 @@ Los GIFs generados se guardan en `outputs/`.
 ## Pruebas
 
 ```bash
-python -m pytest tests
+.venv/bin/python -m pytest tests
 ```
 
 ## Diagrama

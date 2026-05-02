@@ -23,7 +23,7 @@ class Vedo2DOrbitAnimator(OrbitAnimation2DPort):
             from vedo import Line, Plotter, Point, Video
         except ImportError as exc:
             raise ImportError(
-                "Vedo is required for this engine. Run the notebook preparation cell."
+                "Vedo is required for this engine. Run: bash scripts/install.sh"
             ) from exc
 
         if not output_path:

@@ -6,3 +6,4 @@ pyvista>=0.43
 vedo>=2024.5
 imageio>=2.34
 pytest>=7.4
+ipykernel>=6.29

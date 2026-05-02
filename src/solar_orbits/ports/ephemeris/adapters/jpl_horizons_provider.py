@@ -21,8 +21,7 @@ class JplHorizonsEphemerisProvider(EphemerisProviderPort):
             from astroquery.jplhorizons import Horizons
         except ImportError as exc:
             raise RuntimeError(
-                "JPL provider requires astroquery. Install with: "
-                'pip install -e ".[jpl]"'
+                "JPL provider requires astroquery. Run: bash scripts/install.sh"
             ) from exc
 
         horizons_kwargs = {

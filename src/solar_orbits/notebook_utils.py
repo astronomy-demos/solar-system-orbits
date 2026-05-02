@@ -1,9 +1,6 @@
 from __future__ import annotations
 
 import base64
-import importlib.util
-import subprocess
-import sys
 from pathlib import Path
 
 from solar_orbits.domain.orbit_animation_3d_service import OrbitAnimation3DService
@@ -11,27 +8,6 @@ from solar_orbits.domain.orbit_animation_2d_service import OrbitAnimation2DServi
 from solar_orbits.model.models import SolarSystemOrbit
 from solar_orbits.ports.animation_3d.orbit_animation_3d import OrbitAnimation3DPort
 from solar_orbits.ports.animation_2d.orbit_animation_2d import OrbitAnimation2DPort
-
-
-def ensure_visual_dependencies(project_root: Path) -> None:
-    missing_packages = [
-        package
-        for package in ("pyvista", "vedo", "imageio")
-        if importlib.util.find_spec(package) is None
-    ]
-    if not missing_packages:
-        return
-
-    requirements_path = project_root / "requirements.txt"
-    if requirements_path.exists():
-        subprocess.check_call(
-            [sys.executable, "-m", "pip", "install", "-r", str(requirements_path)]
-        )
-        return
-
-    subprocess.check_call(
-        [sys.executable, "-m", "pip", "install", *missing_packages]
-    )
 
 
 def show_gif(path: Path, width: int = 900) -> None:
