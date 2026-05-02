@@ -1,4 +1,4 @@
-# Solar Orbits
+# Solar System Orbits
 
 Proyecto en Python para obtener posiciones cartesianas `x`, `y`, `z` de cuerpos del Sistema Solar desde fuentes cientificas y visualizar orbitas completas mediante animaciones.
 
@@ -220,7 +220,7 @@ Las dependencias del proyecto viven en `pyproject.toml`:
 Instalacion recomendada para trabajar con notebooks y pruebas:
 
 ```bash
-cd solar-orbits
+cd solar-system-orbits
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
