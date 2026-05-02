@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from solar_orbits.ports.ephemeris.ephemeris_provider import EphemerisProviderPort
-from solar_orbits.ports.animation.orbit_animation_3d import OrbitAnimation3DPort
+from solar_orbits.ports.animation_3d.orbit_animation_3d import OrbitAnimation3DPort
 from solar_orbits.ports.animation_2d.orbit_animation_2d import OrbitAnimation2DPort
 
 
@@ -50,25 +50,25 @@ def build_2d_animator(name: str) -> OrbitAnimation2DPort:
 def build_3d_animator(name: str) -> OrbitAnimation3DPort:
     animator_name = name.lower()
     if animator_name == "matplotlib":
-        from solar_orbits.ports.animation.adapters.matplotlib_3d_animator import (
+        from solar_orbits.ports.animation_3d.adapters.matplotlib_3d_animator import (
             Matplotlib3DOrbitAnimator,
         )
 
         return Matplotlib3DOrbitAnimator()
     if animator_name == "pillow":
-        from solar_orbits.ports.animation.adapters.pillow_3d_animator import (
+        from solar_orbits.ports.animation_3d.adapters.pillow_3d_animator import (
             Pillow3DOrbitAnimator,
         )
 
         return Pillow3DOrbitAnimator()
     if animator_name == "pyvista":
-        from solar_orbits.ports.animation.adapters.pyvista_3d_animator import (
+        from solar_orbits.ports.animation_3d.adapters.pyvista_3d_animator import (
             PyVista3DOrbitAnimator,
         )
 
         return PyVista3DOrbitAnimator()
     if animator_name == "vedo":
-        from solar_orbits.ports.animation.adapters.vedo_3d_animator import (
+        from solar_orbits.ports.animation_3d.adapters.vedo_3d_animator import (
             Vedo3DOrbitAnimator,
         )
 

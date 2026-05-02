@@ -6,7 +6,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 from solar_orbits.model.models import AnimationResult, CartesianPosition, SolarSystemOrbit
-from solar_orbits.ports.animation.orbit_animation_3d import OrbitAnimation3DPort
+from solar_orbits.ports.animation_3d.orbit_animation_3d import OrbitAnimation3DPort
 from solar_orbits.ports.animation_2d.adapters.animation import (
     orbit_position_at_progress,
     sampled_frame_indexes,

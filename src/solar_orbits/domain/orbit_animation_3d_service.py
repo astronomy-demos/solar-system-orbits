@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from solar_orbits.model.models import AnimationResult, SolarSystemOrbit
-from solar_orbits.ports.animation.orbit_animation_3d import OrbitAnimation3DPort
+from solar_orbits.ports.animation_3d.orbit_animation_3d import OrbitAnimation3DPort
 
 
 class OrbitAnimation3DService:

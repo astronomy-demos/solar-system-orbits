@@ -20,7 +20,7 @@ src/solar_orbits
 ├── model
 ├── domain
 ├── ports
-│   ├── animation
+│   ├── animation_3d
 │   ├── ephemeris
 │   └── animation_2d
 └── config

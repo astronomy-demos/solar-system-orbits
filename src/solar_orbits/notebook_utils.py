@@ -6,7 +6,7 @@ from pathlib import Path
 from solar_orbits.domain.orbit_animation_3d_service import OrbitAnimation3DService
 from solar_orbits.domain.orbit_animation_2d_service import OrbitAnimation2DService
 from solar_orbits.model.models import SolarSystemOrbit
-from solar_orbits.ports.animation.orbit_animation_3d import OrbitAnimation3DPort
+from solar_orbits.ports.animation_3d.orbit_animation_3d import OrbitAnimation3DPort
 from solar_orbits.ports.animation_2d.orbit_animation_2d import OrbitAnimation2DPort
 
 
