@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "solar-orbit"
+name = "solar-orbits"
 version = "0.1.0"
 description = "Visualizacion de orbitas planetarias con arquitectura hexagonal e intercambio de motores graficos."
 readme = "README.md"
