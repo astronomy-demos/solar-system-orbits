@@ -2,23 +2,23 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from solar_orbits.model.models import PlotResult, SolarSystemOrbit
-from solar_orbits.ports.plotting.adapters.animation import (
+from solar_orbits.model.models import Animation2DResult, SolarSystemOrbit
+from solar_orbits.ports.animation_2d.adapters.animation import (
     orbit_position_at_progress,
     sampled_frame_indexes,
 )
-from solar_orbits.ports.plotting.orbit_plotter import OrbitPlotterPort
+from solar_orbits.ports.animation_2d.orbit_animation_2d import OrbitAnimation2DPort
 
 
-class VedoOrbitPlotter(OrbitPlotterPort):
+class Vedo2DOrbitAnimator(OrbitAnimation2DPort):
     engine_name = "vedo"
 
-    def plot(
+    def animate(
         self,
         solar_system: SolarSystemOrbit,
         output_path: str | None = None,
         show: bool = False,
-    ) -> PlotResult:
+    ) -> Animation2DResult:
         try:
             from vedo import Line, Plotter, Point, Video
         except ImportError as exc:
@@ -27,18 +27,18 @@ class VedoOrbitPlotter(OrbitPlotterPort):
             ) from exc
 
         if not output_path:
-            raise ValueError("Vedo 2D plotter requires an output path ending in .gif.")
+            raise ValueError("Vedo 2D animator requires an output path ending in .gif.")
 
         path = Path(output_path)
         if path.suffix.lower() != ".gif":
-            raise ValueError("Vedo 2D plotter only exports .gif animations.")
+            raise ValueError("Vedo 2D animator only exports .gif animations.")
 
         path.parent.mkdir(parents=True, exist_ok=True)
         frame_indexes = sampled_frame_indexes(solar_system)
         max_frame_index = max(frame_indexes)
         colors = _colors()
 
-        plotter = Plotter(offscreen=not show, size=(1100, 850), bg="#0B1020")
+        animator = Plotter(offscreen=not show, size=(1100, 850), bg="#0B1020")
         static_actors = [Point((0, 0, 0), r=16, c="gold")]
         for index, orbit in enumerate(solar_system.orbits):
             points = [(p.x, p.y, 0.0) for p in orbit.positions]
@@ -52,15 +52,15 @@ class VedoOrbitPlotter(OrbitPlotterPort):
                 moving_actors.append(
                     Point((position.x, position.y, 0.0), r=10, c=colors[index % len(colors)])
                 )
-            plotter.clear()
-            plotter.show(*static_actors, *moving_actors, axes=1, interactive=False)
-            plotter.camera.SetPosition(0, 0, 100)
-            plotter.camera.SetFocalPoint(0, 0, 0)
+            animator.clear()
+            animator.show(*static_actors, *moving_actors, axes=1, interactive=False)
+            animator.camera.SetPosition(0, 0, 100)
+            animator.camera.SetFocalPoint(0, 0, 0)
             video.add_frame()
 
         video.close()
-        plotter.close()
-        return PlotResult(engine=self.engine_name, output_path=output_path, rendered=True)
+        animator.close()
+        return Animation2DResult(engine=self.engine_name, output_path=output_path, rendered=True)
 
 
 def _colors() -> list[str]:

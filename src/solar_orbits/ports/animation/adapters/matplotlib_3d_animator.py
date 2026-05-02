@@ -4,7 +4,7 @@ from pathlib import Path
 
 from solar_orbits.model.models import AnimationResult, SolarSystemOrbit
 from solar_orbits.ports.animation.orbit_animation_3d import OrbitAnimation3DPort
-from solar_orbits.ports.plotting.adapters.animation import (
+from solar_orbits.ports.animation_2d.adapters.animation import (
     orbit_position_at_progress,
     sampled_frame_indexes,
 )
@@ -40,7 +40,7 @@ class Matplotlib3DOrbitAnimator(OrbitAnimation3DPort):
             all_xs.extend(xs)
             all_ys.extend(ys)
             all_zs.extend(zs)
-            ax.plot(xs, ys, zs, label=f"{orbit.body.name} orbit", linewidth=1.2)
+            ax.animate(xs, ys, zs, label=f"{orbit.body.name} orbit", linewidth=1.2)
             moving_points.append(
                 ax.scatter([xs[0]], [ys[0]], [zs[0]], s=32, label=orbit.body.name)
             )

@@ -53,7 +53,7 @@ class SolarSystemOrbit:
 
 
 @dataclass(frozen=True)
-class PlotResult:
+class Animation2DResult:
     engine: str
     output_path: str | None
     rendered: bool

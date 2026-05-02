@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from solar_orbits.ports.ephemeris.ephemeris_provider import EphemerisProviderPort
 from solar_orbits.ports.animation.orbit_animation_3d import OrbitAnimation3DPort
-from solar_orbits.ports.plotting.orbit_plotter import OrbitPlotterPort
+from solar_orbits.ports.animation_2d.orbit_animation_2d import OrbitAnimation2DPort
 
 
 def build_ephemeris_provider(name: str) -> EphemerisProviderPort:
@@ -22,29 +22,29 @@ def build_ephemeris_provider(name: str) -> EphemerisProviderPort:
     raise ValueError(f"Unknown ephemeris provider: {name}")
 
 
-def build_plotter(name: str) -> OrbitPlotterPort:
-    plotter_name = name.lower()
-    if plotter_name == "matplotlib":
-        from solar_orbits.ports.plotting.adapters.matplotlib_plotter import (
-            MatplotlibOrbitPlotter,
+def build_2d_animator(name: str) -> OrbitAnimation2DPort:
+    animator_name = name.lower()
+    if animator_name == "matplotlib":
+        from solar_orbits.ports.animation_2d.adapters.matplotlib_2d_animator import (
+            Matplotlib2DOrbitAnimator,
         )
 
-        return MatplotlibOrbitPlotter()
-    if plotter_name == "pillow":
-        from solar_orbits.ports.plotting.adapters.pillow_plotter import PillowOrbitPlotter
+        return Matplotlib2DOrbitAnimator()
+    if animator_name == "pillow":
+        from solar_orbits.ports.animation_2d.adapters.pillow_2d_animator import Pillow2DOrbitAnimator
 
-        return PillowOrbitPlotter()
-    if plotter_name == "pyvista":
-        from solar_orbits.ports.plotting.adapters.pyvista_plotter import (
-            PyVistaOrbitPlotter,
+        return Pillow2DOrbitAnimator()
+    if animator_name == "pyvista":
+        from solar_orbits.ports.animation_2d.adapters.pyvista_2d_animator import (
+            PyVista2DOrbitAnimator,
         )
 
-        return PyVistaOrbitPlotter()
-    if plotter_name == "vedo":
-        from solar_orbits.ports.plotting.adapters.vedo_plotter import VedoOrbitPlotter
+        return PyVista2DOrbitAnimator()
+    if animator_name == "vedo":
+        from solar_orbits.ports.animation_2d.adapters.vedo_2d_animator import Vedo2DOrbitAnimator
 
-        return VedoOrbitPlotter()
-    raise ValueError(f"Unknown plotter engine: {name}")
+        return Vedo2DOrbitAnimator()
+    raise ValueError(f"Unknown 2D animator engine: {name}")
 
 
 def build_3d_animator(name: str) -> OrbitAnimation3DPort:

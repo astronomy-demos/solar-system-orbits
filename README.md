@@ -8,7 +8,7 @@ Proyecto en Python para obtener posiciones cartesianas `x`, `y`, `z` de cuerpos 
 - Cometa Halley.
 - Proveedor sintetico local para demos sin internet.
 - Adaptador NASA JPL Horizons.
-- Graficadores 2D: Matplotlib, Pillow, PyVista y Vedo.
+- Animadores 2D: Matplotlib, Pillow, PyVista y Vedo.
 - Animadores 3D: Matplotlib, Pillow, PyVista y Vedo.
 - Notebook para comparar cada libreria en dos columnas: 2D a la izquierda y 3D a la derecha.
 
@@ -22,7 +22,7 @@ src/solar_orbits
 ├── ports
 │   ├── animation
 │   ├── ephemeris
-│   └── plotting
+│   └── animation_2d
 └── config
 ```
 
@@ -68,13 +68,13 @@ flowchart LR
         Position["CartesianPosition"]
         BodyOrbit["BodyOrbit"]
         SolarSystem["SolarSystemOrbit"]
-        PlotResult["PlotResult"]
+        Animation2DResult["Animation2DResult"]
         AnimationResult["AnimationResult"]
     end
 
     subgraph Domain["Domain services"]
         DataService["OrbitDataService"]
-        PlotService["OrbitPlotService"]
+        Animation2DService["OrbitAnimation2DService"]
         AnimationService["OrbitAnimation3DService"]
     end
 
@@ -84,12 +84,12 @@ flowchart LR
         JPL["JplHorizonsEphemerisProvider"]
     end
 
-    subgraph PlottingPort["Port: plotting"]
-        PlotterContract["OrbitPlotterPort"]
-        Matplotlib["MatplotlibOrbitPlotter 2D"]
-        Pillow["PillowOrbitPlotter 2D"]
-        PyVista["PyVistaOrbitPlotter 2D"]
-        Vedo["VedoOrbitPlotter 2D"]
+    subgraph Animation2DPort["Port: animation 2D"]
+        Animation2DContract["OrbitAnimation2DPort"]
+        Matplotlib["Matplotlib2DOrbitAnimator"]
+        Pillow["Pillow2DOrbitAnimator"]
+        PyVista["PyVista2DOrbitAnimator"]
+        Vedo["Vedo2DOrbitAnimator"]
     end
 
     subgraph AnimationPort["Port: animation 3D"]
@@ -109,14 +109,14 @@ flowchart LR
     BodyOrbit --> Body
     BodyOrbit --> Position
 
-    Notebook --> PlotService
+    Notebook --> Animation2DService
     Notebook --> SolarSystem
-    PlotService --> PlotterContract
-    PlotterContract -. implementa .-> Matplotlib
-    PlotterContract -. implementa .-> Pillow
-    PlotterContract -. implementa .-> PyVista
-    PlotterContract -. implementa .-> Vedo
-    PlotService --> PlotResult
+    Animation2DService --> Animation2DContract
+    Animation2DContract -. implementa .-> Matplotlib
+    Animation2DContract -. implementa .-> Pillow
+    Animation2DContract -. implementa .-> PyVista
+    Animation2DContract -. implementa .-> Vedo
+    Animation2DService --> Animation2DResult
 
     Notebook --> AnimationService
     AnimationService --> AnimationContract

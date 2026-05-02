@@ -4,10 +4,10 @@ import base64
 from pathlib import Path
 
 from solar_orbits.domain.orbit_animation_3d_service import OrbitAnimation3DService
-from solar_orbits.domain.orbit_plot_service import OrbitPlotService
+from solar_orbits.domain.orbit_animation_2d_service import OrbitAnimation2DService
 from solar_orbits.model.models import SolarSystemOrbit
 from solar_orbits.ports.animation.orbit_animation_3d import OrbitAnimation3DPort
-from solar_orbits.ports.plotting.orbit_plotter import OrbitPlotterPort
+from solar_orbits.ports.animation_2d.orbit_animation_2d import OrbitAnimation2DPort
 
 
 def show_gif(path: Path, width: int = 900) -> None:
@@ -46,8 +46,8 @@ def show_gif_pair(
 
 def render_engine_pair(
     engine_name: str,
-    plotter: OrbitPlotterPort,
-    animator: OrbitAnimation3DPort,
+    animator_2d: OrbitAnimation2DPort,
+    animator_3d: OrbitAnimation3DPort,
     solar_system_orbits: SolarSystemOrbit,
     outputs_dir: Path,
     prefix: str,
@@ -58,12 +58,12 @@ def render_engine_pair(
     gif_3d.unlink(missing_ok=True)
 
     try:
-        OrbitPlotService(plotter).plot_orbits(
+        OrbitAnimation2DService(animator_2d).animate_orbits(
             solar_system_orbits,
             output_path=str(gif_2d),
             show=False,
         )
-        OrbitAnimation3DService(animator).animate_orbits(
+        OrbitAnimation3DService(animator_3d).animate_orbits(
             solar_system_orbits,
             output_path=str(gif_3d),
             show=False,

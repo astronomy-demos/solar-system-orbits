@@ -2,23 +2,23 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from solar_orbits.model.models import PlotResult, SolarSystemOrbit
-from solar_orbits.ports.plotting.adapters.animation import (
+from solar_orbits.model.models import Animation2DResult, SolarSystemOrbit
+from solar_orbits.ports.animation_2d.adapters.animation import (
     orbit_position_at_progress,
     sampled_frame_indexes,
 )
-from solar_orbits.ports.plotting.orbit_plotter import OrbitPlotterPort
+from solar_orbits.ports.animation_2d.orbit_animation_2d import OrbitAnimation2DPort
 
 
-class PyVistaOrbitPlotter(OrbitPlotterPort):
+class PyVista2DOrbitAnimator(OrbitAnimation2DPort):
     engine_name = "pyvista"
 
-    def plot(
+    def animate(
         self,
         solar_system: SolarSystemOrbit,
         output_path: str | None = None,
         show: bool = False,
-    ) -> PlotResult:
+    ) -> Animation2DResult:
         try:
             import numpy as np
             import pyvista as pv
@@ -28,55 +28,55 @@ class PyVistaOrbitPlotter(OrbitPlotterPort):
             ) from exc
 
         if not output_path:
-            raise ValueError("PyVista 2D plotter requires an output path ending in .gif.")
+            raise ValueError("PyVista 2D animator requires an output path ending in .gif.")
 
         path = Path(output_path)
         if path.suffix.lower() != ".gif":
-            raise ValueError("PyVista 2D plotter only exports .gif animations.")
+            raise ValueError("PyVista 2D animator only exports .gif animations.")
 
         path.parent.mkdir(parents=True, exist_ok=True)
         frame_indexes = sampled_frame_indexes(solar_system)
         max_frame_index = max(frame_indexes)
         colors = _colors()
 
-        plotter = pv.Plotter(off_screen=not show, window_size=(1100, 850))
-        plotter.set_background("#0B1020")
-        plotter.add_mesh(pv.Sphere(radius=0.08, center=(0, 0, 0)), color="gold")
+        animator = pv.Plotter(off_screen=not show, window_size=(1100, 850))
+        animator.set_background("#0B1020")
+        animator.add_mesh(pv.Sphere(radius=0.08, center=(0, 0, 0)), color="gold")
 
         for index, orbit in enumerate(solar_system.orbits):
             points = np.array([(p.x, p.y, 0.0) for p in orbit.positions])
-            plotter.add_lines(points, color=colors[index % len(colors)], width=2)
+            animator.add_lines(points, color=colors[index % len(colors)], width=2)
 
-        plotter.add_legend(
+        animator.add_legend(
             [[solar_system.center, "gold"]]
             + [
                 [orbit.body.name, colors[index % len(colors)]]
                 for index, orbit in enumerate(solar_system.orbits)
             ]
         )
-        plotter.show_grid(xlabel="X (AU)", ylabel="Y (AU)", zlabel="")
-        plotter.view_xy()
-        plotter.open_gif(str(path), fps=15)
+        animator.show_grid(xlabel="X (AU)", ylabel="Y (AU)", zlabel="")
+        animator.view_xy()
+        animator.open_gif(str(path), fps=15)
 
         actor_names: list[str] = []
         for frame_index in frame_indexes:
             for actor_name in actor_names:
-                plotter.remove_actor(actor_name)
+                animator.remove_actor(actor_name)
             actor_names = []
 
             for index, orbit in enumerate(solar_system.orbits):
                 position = orbit_position_at_progress(orbit, frame_index, max_frame_index)
                 actor_name = f"{orbit.body.name}-{frame_index}"
-                plotter.add_mesh(
+                animator.add_mesh(
                     pv.Sphere(radius=0.05, center=(position.x, position.y, 0.0)),
                     color=colors[index % len(colors)],
                     name=actor_name,
                 )
                 actor_names.append(actor_name)
-            plotter.write_frame()
+            animator.write_frame()
 
-        plotter.close()
-        return PlotResult(engine=self.engine_name, output_path=output_path, rendered=True)
+        animator.close()
+        return Animation2DResult(engine=self.engine_name, output_path=output_path, rendered=True)
 
 
 def _colors() -> list[str]:

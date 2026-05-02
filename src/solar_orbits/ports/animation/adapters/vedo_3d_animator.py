@@ -4,11 +4,11 @@ from pathlib import Path
 
 from solar_orbits.model.models import AnimationResult, SolarSystemOrbit
 from solar_orbits.ports.animation.orbit_animation_3d import OrbitAnimation3DPort
-from solar_orbits.ports.plotting.adapters.animation import (
+from solar_orbits.ports.animation_2d.adapters.animation import (
     orbit_position_at_progress,
     sampled_frame_indexes,
 )
-from solar_orbits.ports.plotting.adapters.vedo_plotter import _colors
+from solar_orbits.ports.animation_2d.adapters.vedo_2d_animator import _colors
 
 
 class Vedo3DOrbitAnimator(OrbitAnimation3DPort):

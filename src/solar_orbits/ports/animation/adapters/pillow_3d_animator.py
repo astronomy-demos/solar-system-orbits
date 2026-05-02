@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw
 
 from solar_orbits.model.models import AnimationResult, CartesianPosition, SolarSystemOrbit
 from solar_orbits.ports.animation.orbit_animation_3d import OrbitAnimation3DPort
-from solar_orbits.ports.plotting.adapters.animation import (
+from solar_orbits.ports.animation_2d.adapters.animation import (
     orbit_position_at_progress,
     sampled_frame_indexes,
 )
@@ -15,14 +15,6 @@ from solar_orbits.ports.plotting.adapters.animation import (
 
 class Pillow3DOrbitAnimator(OrbitAnimation3DPort):
     engine_name = "pillow-3d"
-
-    def plot(
-        self,
-        solar_system: SolarSystemOrbit,
-        output_path: str | None = None,
-        show: bool = False,
-    ) -> AnimationResult:
-        return self.animate(solar_system, output_path=output_path, show=show)
 
     def animate(
         self,

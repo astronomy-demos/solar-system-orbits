@@ -2,23 +2,23 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from solar_orbits.model.models import PlotResult, SolarSystemOrbit
-from solar_orbits.ports.plotting.orbit_plotter import OrbitPlotterPort
-from solar_orbits.ports.plotting.adapters.animation import (
+from solar_orbits.model.models import Animation2DResult, SolarSystemOrbit
+from solar_orbits.ports.animation_2d.orbit_animation_2d import OrbitAnimation2DPort
+from solar_orbits.ports.animation_2d.adapters.animation import (
     orbit_position_at_progress,
     sampled_frame_indexes,
 )
 
 
-class MatplotlibOrbitPlotter(OrbitPlotterPort):
+class Matplotlib2DOrbitAnimator(OrbitAnimation2DPort):
     engine_name = "matplotlib"
 
-    def plot(
+    def animate(
         self,
         solar_system: SolarSystemOrbit,
         output_path: str | None = None,
         show: bool = False,
-    ) -> PlotResult:
+    ) -> Animation2DResult:
         import matplotlib.pyplot as plt
         from matplotlib.animation import FuncAnimation, PillowWriter
 
@@ -77,7 +77,7 @@ class MatplotlibOrbitPlotter(OrbitPlotterPort):
             plt.show()
 
         plt.close(fig)
-        return PlotResult(
+        return Animation2DResult(
             engine=self.engine_name,
             output_path=output_path,
             rendered=bool(output_path or show),

@@ -4,34 +4,34 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw
 
-from solar_orbits.ports.plotting.adapters.animation import (
+from solar_orbits.ports.animation_2d.adapters.animation import (
     orbit_position_at_progress,
     sampled_frame_indexes,
 )
-from solar_orbits.model.models import PlotResult, SolarSystemOrbit
-from solar_orbits.ports.plotting.orbit_plotter import OrbitPlotterPort
+from solar_orbits.model.models import Animation2DResult, SolarSystemOrbit
+from solar_orbits.ports.animation_2d.orbit_animation_2d import OrbitAnimation2DPort
 
 
-class PillowOrbitPlotter(OrbitPlotterPort):
+class Pillow2DOrbitAnimator(OrbitAnimation2DPort):
     engine_name = "pillow"
 
-    def plot(
+    def animate(
         self,
         solar_system: SolarSystemOrbit,
         output_path: str | None = None,
         show: bool = False,
-    ) -> PlotResult:
+    ) -> Animation2DResult:
         if not output_path:
-            raise ValueError("Pillow plotter requires an output path ending in .gif.")
+            raise ValueError("Pillow animator requires an output path ending in .gif.")
 
         path = Path(output_path)
         if path.suffix.lower() != ".gif":
-            raise ValueError("Pillow plotter only exports .gif animations.")
+            raise ValueError("Pillow animator only exports .gif animations.")
 
         path.parent.mkdir(parents=True, exist_ok=True)
         _write_pillow_gif(solar_system, path)
 
-        return PlotResult(
+        return Animation2DResult(
             engine=self.engine_name,
             output_path=output_path,
             rendered=True,
