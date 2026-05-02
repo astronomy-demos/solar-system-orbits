@@ -24,7 +24,7 @@ class Vedo3DOrbitAnimator(OrbitAnimation3DPort):
             from vedo import Line, Plotter, Point, Video
         except ImportError as exc:
             raise ImportError(
-                "Vedo is optional. Install it with: python -m pip install -e '.[vedo]'"
+                "Vedo is required for this engine. Run: bash scripts/install.sh"
             ) from exc
 
         if not output_path:

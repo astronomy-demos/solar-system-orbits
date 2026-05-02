@@ -25,7 +25,7 @@ class PyVista3DOrbitAnimator(OrbitAnimation3DPort):
             import pyvista as pv
         except ImportError as exc:
             raise ImportError(
-                "PyVista is optional. Install it with: python -m pip install -e '.[pyvista]'"
+                "PyVista is required for this engine. Run: bash scripts/install.sh"
             ) from exc
 
         if not output_path:

@@ -31,7 +31,6 @@ src/solar_orbits
 Todas las dependencias necesarias estan en `requirements.txt`.
 
 ```bash
-cd solar-system-orbits
 bash scripts/install.sh
 ```
 

@@ -12,13 +12,13 @@ dependencies = [
   "numpy>=1.24",
   "matplotlib>=3.7",
   "pillow>=10.0",
+  "astroquery>=0.4.7",
+  "pyvista>=0.43",
+  "vedo>=2024.5",
+  "imageio>=2.34",
 ]
 
 [project.optional-dependencies]
-jpl = ["astroquery>=0.4.7"]
-pyvista = ["pyvista>=0.43", "imageio>=2.34"]
-vedo = ["vedo>=2024.5", "imageio>=2.34"]
-visual = ["pyvista>=0.43", "vedo>=2024.5", "imageio>=2.34"]
 dev = ["pytest>=7.4"]
 
 [tool.hatch.build.targets.wheel]

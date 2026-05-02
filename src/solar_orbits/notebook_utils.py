@@ -69,7 +69,7 @@ def render_engine_pair(
             show=False,
         )
     except Exception as error:
-        show_optional_error(engine_name, error)
+        show_engine_error(engine_name, error)
         return
 
     show_gif_pair(
@@ -80,13 +80,13 @@ def render_engine_pair(
     )
 
 
-def show_optional_error(engine: str, error: Exception) -> None:
+def show_engine_error(engine: str, error: Exception) -> None:
     from IPython.display import HTML, display
 
     html = f"""
     <div style="border:1px solid #ddd; padding:12px; border-radius:6px; font-family:sans-serif;">
       <strong>{engine}</strong><br />
-      No se pudo ejecutar este motor opcional.<br />
+      No se pudo ejecutar este motor.<br />
       <code>{type(error).__name__}: {error}</code>
     </div>
     """
